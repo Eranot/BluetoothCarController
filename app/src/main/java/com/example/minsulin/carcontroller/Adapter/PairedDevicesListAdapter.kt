@@ -1,14 +1,15 @@
-package com.example.minsulin.carcontroller
+package com.example.minsulin.carcontroller.Adapter
 
 import android.app.Activity
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothClass
 import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.example.minsulin.carcontroller.Holder.DeviceHolder
+import com.example.minsulin.carcontroller.Helper.BluetoothHelper
+import com.example.minsulin.carcontroller.R
 
 /**
  * Created by minsulin on 21/09/17.

@@ -1,4 +1,4 @@
-package com.example.minsulin.carcontroller
+package com.example.minsulin.carcontroller.Holder
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
