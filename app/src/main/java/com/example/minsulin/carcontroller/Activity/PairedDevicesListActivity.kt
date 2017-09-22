@@ -3,6 +3,7 @@ package com.example.minsulin.carcontroller.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import com.example.minsulin.carcontroller.Helper.BluetoothHelper
 import com.example.minsulin.carcontroller.Adapter.PairedDevicesListAdapter
 import com.example.minsulin.carcontroller.R
@@ -18,7 +19,11 @@ class PairedDevicesListActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_paired_devices_list)
 
-        recyclerView.adapter = PairedDevicesListAdapter(this, BluetoothHelper.getDevicesList())
+        val devicesList = BluetoothHelper.getDevicesList()
+
+        Log.d("tag", devicesList.size.toString())
+
+        recyclerView.adapter = PairedDevicesListAdapter(this, devicesList)
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
 

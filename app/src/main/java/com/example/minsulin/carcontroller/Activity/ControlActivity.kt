@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.example.minsulin.carcontroller.Helper.BluetoothHelper
 import com.example.minsulin.carcontroller.R
 import kotlinx.android.synthetic.main.activity_control.*
 
@@ -33,8 +34,8 @@ class ControlActivity : AppCompatActivity() {
         setupButton(root, "")
 
         sendMessage()
-    }
 
+    }
 
     fun checkIfClickingOnButton(event : MotionEvent) : View?{
         val eventX = event.x.toInt()
@@ -101,9 +102,10 @@ class ControlActivity : AppCompatActivity() {
             touchedButton?.let{
                 if(it != root){
                     Log.d("mandou", buttons[touchedButton!!])
+                    BluetoothHelper.write(buttons[touchedButton!!].toString())
                 }
             }
             sendMessage()
-        }, 200)
+        }, 100)
     }
 }

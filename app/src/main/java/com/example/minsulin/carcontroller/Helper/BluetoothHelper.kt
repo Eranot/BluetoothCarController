@@ -2,6 +2,7 @@ package com.example.minsulin.carcontroller.Helper
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothSocket
 import android.util.Log
 import java.io.IOException
 import java.io.InputStream
@@ -13,14 +14,16 @@ import java.util.*
  */
 object BluetoothHelper {
 
-    private val adapter = BluetoothAdapter.getDefaultAdapter()
+    val adapter = BluetoothAdapter.getDefaultAdapter()
+    private var socket : BluetoothSocket? = null
+    private var device : BluetoothDevice? = null
     private var devices = adapter.bondedDevices
     private var input : InputStream? = null
     private var output : OutputStream? = null
-    private var bluetoothIsEnabled = false
+    var isConnected = false
 
     fun enableBluetooth(){
-        if(!bluetoothIsEnabled) {
+        if(!adapter.isEnabled) {
             adapter.enable()
         }
     }
@@ -33,24 +36,31 @@ object BluetoothHelper {
     }
 
     fun connectTo(address: String) : Boolean{
-        val device = adapter.getRemoteDevice(address)
-        val socket = device.createRfcommSocketToServiceRecord(UUID.randomUUID())
+        device = adapter.getRemoteDevice(address)
+        socket = device!!.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"))
 
         try{
-            socket.connect()
-            input = socket.inputStream
-            output = socket.outputStream
+            socket!!.connect()
+            input = socket!!.inputStream
+            output = socket!!.outputStream
+            output!!.write("teste".toByteArray())
+            isConnected = true
         } catch (ex : IOException){
             Log.d("erro", "Não foi possível conectar")
         }
 
-
-
-        return socket.isConnected
+        return socket!!.isConnected
     }
 
     fun write(message: String){
         output!!.write(message.toByteArray())
+    }
+
+    fun disconnect(){
+
+        socket?.let{
+            it.close()
+        }
     }
 
 }

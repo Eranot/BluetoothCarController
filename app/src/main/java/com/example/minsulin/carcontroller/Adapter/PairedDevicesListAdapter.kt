@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.minsulin.carcontroller.Holder.DeviceHolder
 import com.example.minsulin.carcontroller.Helper.BluetoothHelper
 import com.example.minsulin.carcontroller.R
@@ -15,7 +16,6 @@ import com.example.minsulin.carcontroller.R
  * Created by minsulin on 21/09/17.
  */
 class PairedDevicesListAdapter(val context : Context, val devices: MutableList<BluetoothDevice>) : RecyclerView.Adapter<DeviceHolder>() {
-
 
     override fun getItemCount(): Int {
         return devices.size
@@ -36,6 +36,8 @@ class PairedDevicesListAdapter(val context : Context, val devices: MutableList<B
                 (context as Activity).finish()
             } else {
                 Log.e("Error", "ERRO AO CONECTAR")
+                val toast = Toast.makeText(context, "ERRO AO CONECTAR", Toast.LENGTH_LONG)
+                toast.show()
             }
 
 

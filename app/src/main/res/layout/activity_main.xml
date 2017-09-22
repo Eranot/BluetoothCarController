@@ -10,15 +10,20 @@
 
     <Button
         android:id="@+id/btnConnect"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Conectar com um dispositivo"
         />
     <Button
         android:id="@+id/btnControl"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Controlar o robô"/>
 
+    <Button
+        android:id="@+id/btnDisable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Desconectar"/>
 
 </LinearLayout>

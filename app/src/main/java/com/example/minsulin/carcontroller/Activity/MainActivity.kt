@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.example.minsulin.carcontroller.Helper.BluetoothHelper
 import com.example.minsulin.carcontroller.R
 
 
@@ -24,10 +25,22 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btnControl.isEnabled = BluetoothHelper.isConnected
+
         btnControl.setOnClickListener {
             val intent = Intent(this, ControlActivity::class.java)
             startActivity(intent)
         }
 
+        btnDisable.setOnClickListener {
+            BluetoothHelper.disconnect()
+        }
+
     }
+
+    override fun onResume() {
+        super.onResume()
+        btnControl.isEnabled = BluetoothHelper.isConnected
+    }
+
 }
