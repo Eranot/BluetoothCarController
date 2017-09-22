@@ -42,10 +42,10 @@ class ControlActivity : AppCompatActivity() {
         for (pair in buttons) {
 
             val bt = pair.key
-            val parentLeft = (bt.getParent() as ViewGroup).left
-            val parentTop = (bt.getParent() as ViewGroup).top
-            val rect = Rect(bt.getLeft() + parentLeft, bt.getTop() + parentTop,
-                    bt.getRight() + parentLeft, bt.getBottom() + parentTop)
+            val parentLeft = (bt.parent as ViewGroup).left
+            val parentTop = (bt.parent as ViewGroup).top
+            val rect = Rect(bt.left + parentLeft, bt.top + parentTop,
+                    bt.right + parentLeft, bt.bottom + parentTop)
 
             if(pair.key == root){
                 continue
@@ -70,11 +70,17 @@ class ControlActivity : AppCompatActivity() {
 
                 MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE ->{
 
-                    val parentLeft = (view.getParent() as ViewGroup).left
-                    val parentTop = (view.getParent() as ViewGroup).top
+                    var parentLeft = (view.parent as ViewGroup).left
+                    var parentTop = (view.parent as ViewGroup).top
+
+                    if(view == root){
+                        parentLeft = 0
+                        parentTop = 0
+                    }
 
                     val e = motionEvent
-                    e.setLocation(e.getX() + view.getLeft() + parentLeft, e.getY() + view.getTop() + parentTop) //Essa linha é necessária porque o X e Y dos evento é relativo à própria View
+
+                    e.setLocation(e.x + view.left+ parentLeft, e.y + view.top + parentTop) //Essa linha é necessária porque o X e Y dos evento é relativo à própria View
 
                     touchedButton = checkIfClickingOnButton(e)
 
