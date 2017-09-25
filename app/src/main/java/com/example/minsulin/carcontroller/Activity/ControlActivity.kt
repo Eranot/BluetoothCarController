@@ -1,5 +1,6 @@
 package com.example.minsulin.carcontroller.Activity
 
+import android.content.res.Configuration
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
@@ -8,10 +9,9 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import com.example.minsulin.carcontroller.Helper.BluetoothHelper
 import com.example.minsulin.carcontroller.R
 import kotlinx.android.synthetic.main.activity_control.*
+import kotlinx.android.synthetic.main.control_buttons_group.view.*
 
 
 /**
@@ -19,8 +19,8 @@ import kotlinx.android.synthetic.main.activity_control.*
  */
 class ControlActivity : AppCompatActivity() {
 
-    var touchedButton : View? = null
-    var buttons = mutableMapOf<View, String>()
+    private var touchedButtons = ArrayList<View>()
+    private var buttons = mutableMapOf<View, String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +30,23 @@ class ControlActivity : AppCompatActivity() {
         setupButton(btnDown, "S")
         setupButton(btnRight, "D")
         setupButton(btnLeft, "A")
+
+        Log.d("or", this.resources.configuration.orientation.toString())
+
+        if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+
+            setupButton(groupArt1.findViewById(R.id.btnGroupUp), "R")
+            setupButton(groupArt1.findViewById(R.id.btnGroupDown), "F")
+
+            setupButton(groupArt2.findViewById(R.id.btnGroupUp), "T")
+            setupButton(groupArt2.findViewById(R.id.btnGroupDown), "G")
+
+            setupButton(groupGarra.findViewById(R.id.btnGroupUp), "Y")
+            setupButton(groupGarra.findViewById(R.id.btnGroupDown), "H")
+
+            setupButton(groupHorizontal.findViewById(R.id.btnGroupUp), "U")
+            setupButton(groupHorizontal.findViewById(R.id.btnGroupDown), "J")
+        }
 
         setupButton(root, "")
 
@@ -53,19 +70,20 @@ class ControlActivity : AppCompatActivity() {
             }
 
             if (rect.contains(eventX, eventY)) {
+                //Log.d("mandou", pair.value)
                 return pair.key
             }
         }
         return null
     }
 
-    fun setupButton(view: View, message: String){
-        if(view != root){
-            buttons[view] = message
+    fun setupButton(view2: View, message: String){
+        if(view2 != root){
+            buttons[view2] = message
         }
 
-
-        view.setOnTouchListener { view, motionEvent ->
+        var touch : View? = null
+        view2.setOnTouchListener { view, motionEvent ->
 
             when(motionEvent.action){
 
@@ -79,17 +97,30 @@ class ControlActivity : AppCompatActivity() {
                         parentTop = 0
                     }
 
-                    val e = motionEvent
+                    motionEvent.setLocation(motionEvent.x + view.left+ parentLeft, motionEvent.y + view.top + parentTop) //Essa linha é necessária porque o X e Y dos evento é relativo à própria View
 
-                    e.setLocation(e.x + view.left+ parentLeft, e.y + view.top + parentTop) //Essa linha é necessária porque o X e Y dos evento é relativo à própria View
+                    val touch2 = checkIfClickingOnButton(motionEvent)
+                    if(touch2 != touch){
+                        Log.d("asd", "removeu o antigo" + touch.toString())
+                        touchedButtons.remove(touch)
+                    }
 
-                    touchedButton = checkIfClickingOnButton(e)
+                    touch = touch2
+
+                    touch?.let {
+                        if(!touchedButtons.contains(it)){
+                            touchedButtons.add(it)
+                        }
+
+                        if(it != view2){
+                            touchedButtons.remove(view2)
+                        }
+                    }
 
                 }
 
                 else -> {
-                    //Log.d("else", "else")
-                    touchedButton = null
+                    touchedButtons.remove(touch)
                 }
             }
 
@@ -99,13 +130,12 @@ class ControlActivity : AppCompatActivity() {
 
     fun sendMessage(){
         Handler().postDelayed({
-            touchedButton?.let{
-                if(it != root){
-                    Log.d("mandou", buttons[touchedButton!!])
-                    BluetoothHelper.write(buttons[touchedButton!!].toString())
-                }
+            for(v in touchedButtons){
+                Log.d("mandou", buttons[v])
             }
+            //BluetoothHelper.write(buttons[touchedButtons!!].toString())
+
             sendMessage()
-        }, 100)
+        }, 200)
     }
 }

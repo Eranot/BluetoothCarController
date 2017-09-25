@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btnControl.isEnabled = BluetoothHelper.isConnected
+        //btnControl.isEnabled = BluetoothHelper.isConnected
 
         btnControl.setOnClickListener {
             val intent = Intent(this, ControlActivity::class.java)
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        btnControl.isEnabled = BluetoothHelper.isConnected
+        //btnControl.isEnabled = BluetoothHelper.isConnected
     }
 
 }
