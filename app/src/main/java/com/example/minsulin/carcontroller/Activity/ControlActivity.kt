@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import com.example.minsulin.carcontroller.Helper.BluetoothHelper
 import com.example.minsulin.carcontroller.R
 import kotlinx.android.synthetic.main.activity_control.*
 import kotlinx.android.synthetic.main.control_buttons_group.view.*
@@ -132,6 +133,7 @@ class ControlActivity : AppCompatActivity() {
         Handler().postDelayed({
             for(v in touchedButtons){
                 Log.d("mandou", buttons[v])
+                BluetoothHelper.write(buttons[v].toString())
             }
             //BluetoothHelper.write(buttons[touchedButtons!!].toString())
 
