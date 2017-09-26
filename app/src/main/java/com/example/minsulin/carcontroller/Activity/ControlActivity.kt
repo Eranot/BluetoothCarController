@@ -39,7 +39,7 @@ class ControlActivity : AppCompatActivity() {
             setupButton(groupArt1.findViewById(R.id.btnGroupUp), "R")
             setupButton(groupArt1.findViewById(R.id.btnGroupDown), "F")
 
-            setupButton(groupArt2.findViewById(R.id.btnGroupUp), "T")
+            setupButton(groupArt2.btnGroupUp, "T")
             setupButton(groupArt2.findViewById(R.id.btnGroupDown), "G")
 
             setupButton(groupGarra.findViewById(R.id.btnGroupUp), "Y")
@@ -47,7 +47,10 @@ class ControlActivity : AppCompatActivity() {
 
             setupButton(groupHorizontal.findViewById(R.id.btnGroupUp), "U")
             setupButton(groupHorizontal.findViewById(R.id.btnGroupDown), "J")
+
+            //Log.d("diff", groupArt1.btnGroupUp.toString() + " - " + groupArt2.btnGroupUp.toString())
         }
+
 
         setupButton(root, "")
 
@@ -61,8 +64,17 @@ class ControlActivity : AppCompatActivity() {
         for (pair in buttons) {
 
             val bt = pair.key
-            val parentLeft = (bt.parent as ViewGroup).left
-            val parentTop = (bt.parent as ViewGroup).top
+            var parentLeft = (bt.parent as ViewGroup).left
+            var parentTop = (bt.parent as ViewGroup).top
+
+            var parent = bt.parent
+            while(parent.parent != root){
+                Log.d("loop", "loop")
+                parentLeft += (parent as ViewGroup).left
+                parentTop += (parent as ViewGroup).top
+                parent = parent.parent
+            }
+
             val rect = Rect(bt.left + parentLeft, bt.top + parentTop,
                     bt.right + parentLeft, bt.bottom + parentTop)
 
@@ -89,9 +101,18 @@ class ControlActivity : AppCompatActivity() {
             when(motionEvent.action){
 
                 MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE ->{
-
                     var parentLeft = (view.parent as ViewGroup).left
                     var parentTop = (view.parent as ViewGroup).top
+
+                    var parent = view.parent
+                    while(parent.parent != root){
+                        Log.d("loop", "loop")
+                        parentLeft += (parent as ViewGroup).left
+                        parentTop += (parent as ViewGroup).top
+                        parent = parent.parent
+                    }
+
+                    Log.d("loop", "==================end")
 
                     if(view == root){
                         parentLeft = 0
@@ -101,6 +122,7 @@ class ControlActivity : AppCompatActivity() {
                     motionEvent.setLocation(motionEvent.x + view.left+ parentLeft, motionEvent.y + view.top + parentTop) //Essa linha é necessária porque o X e Y dos evento é relativo à própria View
 
                     val touch2 = checkIfClickingOnButton(motionEvent)
+
                     if(touch2 != touch){
                         Log.d("asd", "removeu o antigo" + touch.toString())
                         touchedButtons.remove(touch)
@@ -135,6 +157,7 @@ class ControlActivity : AppCompatActivity() {
                 Log.d("mandou", buttons[v])
                 BluetoothHelper.write(buttons[v].toString())
             }
+
             //BluetoothHelper.write(buttons[touchedButtons!!].toString())
 
             sendMessage()
