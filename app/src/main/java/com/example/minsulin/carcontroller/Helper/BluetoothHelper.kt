@@ -20,12 +20,15 @@ object BluetoothHelper {
     private var devices = adapter.bondedDevices
     private var input : InputStream? = null
     private var output : OutputStream? = null
-    var isConnected = false
 
     fun enableBluetooth(){
         if(!adapter.isEnabled) {
             adapter.enable()
         }
+    }
+
+    fun getIsConnected() : Boolean {
+        return socket?.isConnected ?: false
     }
 
     fun getDevicesList() : MutableList<BluetoothDevice> {
@@ -44,7 +47,6 @@ object BluetoothHelper {
             input = socket!!.inputStream
             output = socket!!.outputStream
             output!!.write("teste".toByteArray())
-            isConnected = true
         } catch (ex : IOException){
             Log.d("erro", "Não foi possível conectar")
         }
@@ -52,8 +54,10 @@ object BluetoothHelper {
         return socket!!.isConnected
     }
 
-    fun write(message: String){
-        output!!.write(message.toByteArray())
+    fun write(message: String) {
+        if (socket!!.isConnected){
+            output!!.write(message.toByteArray())
+        }
     }
 
     fun disconnect(){

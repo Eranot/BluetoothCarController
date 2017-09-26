@@ -69,7 +69,6 @@ class ControlActivity : AppCompatActivity() {
 
             var parent = bt.parent
             while(parent.parent != root){
-                Log.d("loop", "loop")
                 parentLeft += (parent as ViewGroup).left
                 parentTop += (parent as ViewGroup).top
                 parent = parent.parent
@@ -104,27 +103,27 @@ class ControlActivity : AppCompatActivity() {
                     var parentLeft = (view.parent as ViewGroup).left
                     var parentTop = (view.parent as ViewGroup).top
 
-                    var parent = view.parent
-                    while(parent.parent != root){
-                        Log.d("loop", "loop")
-                        parentLeft += (parent as ViewGroup).left
-                        parentTop += (parent as ViewGroup).top
-                        parent = parent.parent
-                    }
-
-                    Log.d("loop", "==================end")
-
                     if(view == root){
                         parentLeft = 0
                         parentTop = 0
+                    } else {
+
+                        var parent = view.parent
+                        while (parent.parent != root) {
+                            parentLeft += (parent as ViewGroup).left
+                            parentTop += (parent as ViewGroup).top
+                            parent = parent.parent
+                        }
                     }
+
+
 
                     motionEvent.setLocation(motionEvent.x + view.left+ parentLeft, motionEvent.y + view.top + parentTop) //Essa linha é necessária porque o X e Y dos evento é relativo à própria View
 
                     val touch2 = checkIfClickingOnButton(motionEvent)
 
                     if(touch2 != touch){
-                        Log.d("asd", "removeu o antigo" + touch.toString())
+                        //Log.d("asd", "removeu o antigo" + touch.toString())
                         touchedButtons.remove(touch)
                     }
 
@@ -158,9 +157,7 @@ class ControlActivity : AppCompatActivity() {
                 BluetoothHelper.write(buttons[v].toString())
             }
 
-            //BluetoothHelper.write(buttons[touchedButtons!!].toString())
-
             sendMessage()
-        }, 200)
+        }, 100)
     }
 }
