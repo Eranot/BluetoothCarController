@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:id="@+id/root">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="24dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <include android:id="@+id/groupArt1" layout="@layout/control_buttons_group"/>
+            <include android:id="@+id/groupArt2" layout="@layout/control_buttons_group"/>
+            <include android:id="@+id/groupGarra" layout="@layout/control_buttons_group"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <include android:id="@+id/groupHorizontal" layout="@layout/control_buttons_group_horizontal"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="24dp">
+
+        <com.jmedeisis.bugstick.Joystick
+            android:id="@+id/joystick"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/round_button" />
+
+        </com.jmedeisis.bugstick.Joystick>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -55,9 +55,12 @@ object BluetoothHelper {
     }
 
     fun write(message: String) {
-        if (socket!!.isConnected){
-            output!!.write(message.toByteArray())
+        socket?.let {
+            if (it.isConnected){
+                output!!.write(message.toByteArray())
+            }
         }
+
     }
 
     fun disconnect(){

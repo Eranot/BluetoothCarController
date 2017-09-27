@@ -20,28 +20,30 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        BluetoothHelper.enableBluetooth()
+
         btnConnect.setOnClickListener {
             val intent = Intent(this, PairedDevicesListActivity::class.java)
             startActivity(intent)
         }
 
-        btnControl.isEnabled = BluetoothHelper.getIsConnected()
+        //btnControl.isEnabled = BluetoothHelper.getIsConnected()
 
         btnControl.setOnClickListener {
-            val intent = Intent(this, ControlActivity::class.java)
+            val intent = Intent(this, ControlActivity2::class.java)
             startActivity(intent)
         }
 
         btnDisable.setOnClickListener {
             BluetoothHelper.disconnect()
-            btnControl.isEnabled = false
+            //btnControl.isEnabled = false
         }
 
     }
 
     override fun onResume() {
         super.onResume()
-        btnControl.isEnabled = BluetoothHelper.getIsConnected()
+        //btnControl.isEnabled = BluetoothHelper.getIsConnected()
     }
 
 }
