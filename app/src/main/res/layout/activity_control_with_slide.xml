@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:gravity="bottom"
+    app:umanoPanelHeight="68dp"
+    app:umanoShadowHeight="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/root">
+
+        <RelativeLayout
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="32dp">
+
+            <com.jmedeisis.bugstick.Joystick
+                android:id="@+id/joystickDir"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:motion_constraint="Horizontal">
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/round_button" />
+
+            </com.jmedeisis.bugstick.Joystick>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="32dp">
+
+            <com.jmedeisis.bugstick.Joystick
+                android:id="@+id/joystickVel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:motion_constraint="Vertical">
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/round_button" />
+
+            </com.jmedeisis.bugstick.Joystick>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <include android:id="@+id/groupArt1" layout="@layout/control_buttons_group"/>
+                <include android:id="@+id/groupArt2" layout="@layout/control_buttons_group"/>
+                <include android:id="@+id/groupGarra" layout="@layout/control_buttons_group"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <include android:id="@+id/groupHorizontal" layout="@layout/control_buttons_group_horizontal"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

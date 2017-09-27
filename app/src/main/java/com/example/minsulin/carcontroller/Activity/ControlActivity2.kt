@@ -27,7 +27,7 @@ class ControlActivity2 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_control2)
+        setContentView(R.layout.activity_control_with_slide)
 
         if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
 
