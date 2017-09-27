@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         btnDisable.setOnClickListener {
             BluetoothHelper.disconnect()
+            btnControl.isEnabled = false
         }
 
     }
