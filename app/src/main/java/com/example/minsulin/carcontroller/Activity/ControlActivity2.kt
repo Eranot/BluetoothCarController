@@ -22,57 +22,35 @@ class ControlActivity2 : AppCompatActivity() {
 
     private var touchedButtons = ArrayList<View>()
     private var buttons = mutableMapOf<View, String>()
-    private var e = 0.0
-    private var d = 0.0
+    private var dir = 0.0
+    private var vel = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_control2)
 
-        Log.d("or", this.resources.configuration.orientation.toString())
-
         if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
 
-            setupButton(groupArt1.findViewById(R.id.btnGroupUp), "R")
-            setupButton(groupArt1.findViewById(R.id.btnGroupDown), "F")
-
-            setupButton(groupArt2.btnGroupUp, "T")
-            setupButton(groupArt2.findViewById(R.id.btnGroupDown), "G")
-
-            setupButton(groupGarra.findViewById(R.id.btnGroupUp), "Y")
-            setupButton(groupGarra.findViewById(R.id.btnGroupDown), "H")
-
-            setupButton(groupHorizontal.findViewById(R.id.btnGroupUp), "U")
-            setupButton(groupHorizontal.findViewById(R.id.btnGroupDown), "J")
+//            setupButton(groupArt1.findViewById(R.id.btnGroupUp), "R")
+//            setupButton(groupArt1.findViewById(R.id.btnGroupDown), "F")
+//
+//            setupButton(groupArt2.btnGroupUp, "T")
+//            setupButton(groupArt2.findViewById(R.id.btnGroupDown), "G")
+//
+//            setupButton(groupGarra.findViewById(R.id.btnGroupUp), "Y")
+//            setupButton(groupGarra.findViewById(R.id.btnGroupDown), "H")
+//
+//            setupButton(groupHorizontal.findViewById(R.id.btnGroupUp), "U")
+//            setupButton(groupHorizontal.findViewById(R.id.btnGroupDown), "J")
 
             //Log.d("diff", groupArt1.btnGroupUp.toString() + " - " + groupArt2.btnGroupUp.toString())
         }
 
 
-        joystick.setJoystickListener(object: JoystickListener {
+        joystickVel.setJoystickListener(object: JoystickListener {
             override fun onDrag(degrees: Float, offset: Float) {
                 //Log.d("joystick", degrees.toString() + " " + offset.toString())
-
-                if(degrees >= 0 && degrees <= 90){
-                    e = 100.0
-                    d = (100.0 * degrees.toDouble()) / 90.0
-                } else if(degrees > 90 && degrees <= 180){
-                    val angulo = degrees - 90
-
-                    d = 100.0
-                    e = 100 - (100.0 * angulo.toDouble()) / 90.0
-                } else if(degrees > -180 && degrees <= -90){
-                    val angulo = degrees - 90 * -1
-
-                    d = -100.0
-                    e = -100 - (100.0 * angulo.toDouble()) / 90.0
-                } else if(degrees > -90 && degrees < 0){
-                    val angulo = degrees * -1
-
-                    e = -100.0
-                    d = -(100.0 * angulo.toDouble()) / 90.0
-                }
-
+                vel = degrees.toDouble() * offset * 2
 
             }
 
@@ -81,15 +59,34 @@ class ControlActivity2 : AppCompatActivity() {
             }
 
             override fun onUp() {
-                d = 0.0
-                e = 0.0
+                vel = 0.0
+            }
+        })
+
+        joystickDir.setJoystickListener(object: JoystickListener {
+            override fun onDrag(degrees: Float, offset: Float) {
+                //Log.d("joystick", degrees.toString() + " " + offset.toString())
+                if(degrees.toDouble() == -180.0){
+                    dir = -100.0
+                } else {
+                    dir = 100.0
+                }
+                dir *= offset
+
+            }
+
+            override fun onDown() {
+
+            }
+
+            override fun onUp() {
+                dir = 0.0
             }
         })
 
         setupButton(root, "")
 
         sendMessage()
-
     }
 
     fun checkIfClickingOnButton(event : MotionEvent) : View?{
@@ -189,8 +186,8 @@ class ControlActivity2 : AppCompatActivity() {
                 BluetoothHelper.write(buttons[v].toString())
             }
 
-            if(e != 0.0 && d != 0.0){
-                val msg = "[" + e.toInt().toString() + "|" + d.toInt().toString() + "]"
+            if(dir != 0.0 || vel != 0.0){
+                val msg = "[" + dir.toInt().toString() + "|" + vel.toInt().toString() + "]"
                 BluetoothHelper.write(msg)
                 Log.d("mandou", msg)
             }
