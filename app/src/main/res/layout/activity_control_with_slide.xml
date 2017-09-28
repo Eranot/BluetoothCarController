@@ -6,13 +6,12 @@
     xmlns:bind="http://schemas.android.com/tools"
     android:layout_gravity="center"
     android:gravity="bottom"
-    app:umanoPanelHeight="68dp"
-    app:umanoShadowHeight="4dp">
+    app:umanoPanelHeight="50dp"
+    app:umanoShadowHeight="2dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/root">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="250dp"
@@ -22,15 +21,15 @@
             android:layout_marginLeft="32dp">
 
             <com.jmedeisis.bugstick.Joystick
-                android:id="@+id/joystickDir"
+                android:id="@+id/joystickVel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:motion_constraint="Horizontal">
+                app:motion_constraint="Vertical">
 
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:src="@drawable/round_button" />
+                    android:src="@drawable/joystick2" />
 
             </com.jmedeisis.bugstick.Joystick>
 
@@ -44,19 +43,21 @@
             android:layout_marginRight="32dp">
 
             <com.jmedeisis.bugstick.Joystick
-                android:id="@+id/joystickVel"
+                android:id="@+id/joystickDir"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:motion_constraint="Vertical">
+                app:motion_constraint="Horizontal">
 
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:src="@drawable/round_button" />
+                    android:src="@drawable/joystick2" />
 
             </com.jmedeisis.bugstick.Joystick>
 
         </RelativeLayout>
+
+
 
     </RelativeLayout>
 
@@ -66,7 +67,22 @@
         android:orientation="vertical"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:padding="24dp">
+        android:id="@+id/root"
+        android:paddingBottom="16dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guindaste"
+                android:gravity="center"
+                android:textSize="22sp"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"

@@ -40,6 +40,6 @@
     <style name="Image">
         <item name="android:layout_width">60dp</item>
         <item name="android:layout_height">60dp</item>
-        <item name="android:background">@drawable/round_button</item>
+
     </style>
 </resources>

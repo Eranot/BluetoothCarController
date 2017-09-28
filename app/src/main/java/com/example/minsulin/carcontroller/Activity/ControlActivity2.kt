@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MotionEvent
@@ -12,7 +13,7 @@ import android.view.ViewGroup
 import com.example.minsulin.carcontroller.Helper.BluetoothHelper
 import com.example.minsulin.carcontroller.R
 import com.jmedeisis.bugstick.JoystickListener
-import kotlinx.android.synthetic.main.activity_control2.*
+import kotlinx.android.synthetic.main.activity_control_with_slide.*
 import kotlinx.android.synthetic.main.control_buttons_group.view.*
 
 /**
@@ -31,19 +32,21 @@ class ControlActivity2 : AppCompatActivity() {
 
         if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
 
-//            setupButton(groupArt1.findViewById(R.id.btnGroupUp), "R")
-//            setupButton(groupArt1.findViewById(R.id.btnGroupDown), "F")
-//
-//            setupButton(groupArt2.btnGroupUp, "T")
-//            setupButton(groupArt2.findViewById(R.id.btnGroupDown), "G")
-//
-//            setupButton(groupGarra.findViewById(R.id.btnGroupUp), "Y")
-//            setupButton(groupGarra.findViewById(R.id.btnGroupDown), "H")
-//
-//            setupButton(groupHorizontal.findViewById(R.id.btnGroupUp), "U")
-//            setupButton(groupHorizontal.findViewById(R.id.btnGroupDown), "J")
+            setupButton(groupArt1.btnGroupUp, "R")
+            setupButton(groupArt1.btnGroupDown, "F")
 
-            //Log.d("diff", groupArt1.btnGroupUp.toString() + " - " + groupArt2.btnGroupUp.toString())
+            setupButton(groupArt2.btnGroupUp, "T")
+            setupButton(groupArt2.btnGroupDown, "G")
+
+            setupButton(groupGarra.btnGroupUp, "Y")
+            setupButton(groupGarra.btnGroupDown, "H")
+
+            groupGarra.imgMiddle.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.garra2))
+
+            setupButton(groupHorizontal.btnGroupUp, "U")
+            setupButton(groupHorizontal.btnGroupDown, "J")
+
+            Log.d("diff", groupArt1.btnGroupUp.toString() + " - " + groupArt2.btnGroupUp.toString())
         }
 
 
