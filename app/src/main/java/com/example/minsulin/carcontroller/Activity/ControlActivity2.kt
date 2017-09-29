@@ -35,6 +35,8 @@ class ControlActivity2 : AppCompatActivity() {
             setupButton(groupArt1.btnGroupUp, "R")
             setupButton(groupArt1.btnGroupDown, "F")
 
+            groupArt1.imgMiddle.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.art1))
+
             setupButton(groupArt2.btnGroupUp, "T")
             setupButton(groupArt2.btnGroupDown, "G")
 
@@ -47,6 +49,8 @@ class ControlActivity2 : AppCompatActivity() {
 
             setupButton(groupHorizontal.btnGroupUp, "U")
             setupButton(groupHorizontal.btnGroupDown, "J")
+
+            groupHorizontal.imgMiddle.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.horizontal))
 
             Log.d("diff", groupArt1.btnGroupUp.toString() + " - " + groupArt2.btnGroupUp.toString())
         }
