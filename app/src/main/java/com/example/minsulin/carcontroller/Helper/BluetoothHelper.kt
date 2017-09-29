@@ -33,6 +33,7 @@ object BluetoothHelper {
 
     fun getDevicesList() : MutableList<BluetoothDevice> {
         enableBluetooth()
+        devices = adapter.bondedDevices
         val list = mutableListOf<BluetoothDevice>()
         list.addAll(devices)
         return list
@@ -57,7 +58,12 @@ object BluetoothHelper {
     fun write(message: String) {
         socket?.let {
             if (it.isConnected){
-                output!!.write(message.toByteArray())
+                try {
+                    output!!.write(message.toByteArray())
+                } catch (e : Exception){
+
+                }
+
             }
         }
 
