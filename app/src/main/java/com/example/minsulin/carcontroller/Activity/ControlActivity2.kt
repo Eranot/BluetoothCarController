@@ -38,6 +38,8 @@ class ControlActivity2 : AppCompatActivity() {
             setupButton(groupArt2.btnGroupUp, "T")
             setupButton(groupArt2.btnGroupDown, "G")
 
+            groupArt2.imgMiddle.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.art2))
+
             setupButton(groupGarra.btnGroupUp, "Y")
             setupButton(groupGarra.btnGroupDown, "H")
 
