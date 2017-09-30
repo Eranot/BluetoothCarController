@@ -30,30 +30,7 @@ class ControlActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_control_with_slide)
 
-        if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
 
-            setupButton(groupArt1.btnGroupUp, "R")
-            setupButton(groupArt1.btnGroupDown, "F")
-
-            groupArt1.imgMiddle.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.art1))
-
-            setupButton(groupArt2.btnGroupUp, "T")
-            setupButton(groupArt2.btnGroupDown, "G")
-
-            groupArt2.imgMiddle.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.art2))
-
-            setupButton(groupGarra.btnGroupUp, "Y")
-            setupButton(groupGarra.btnGroupDown, "H")
-
-            groupGarra.imgMiddle.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.garra2))
-
-            setupButton(groupHorizontal.btnGroupUp, "U")
-            setupButton(groupHorizontal.btnGroupDown, "J")
-
-            groupHorizontal.imgMiddle.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.horizontal))
-
-            Log.d("diff", groupArt1.btnGroupUp.toString() + " - " + groupArt2.btnGroupUp.toString())
-        }
 
 
         joystickVel.setJoystickListener(object: JoystickListener {
